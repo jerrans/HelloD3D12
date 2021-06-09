@@ -273,14 +273,15 @@ void D3D12TexturedQuad::CreateRootSignature ()
 {
 	// We have two root parameters, one is a pointer to a descriptor heap
 	// with a SRV, the second is a constant buffer view
-	CD3DX12_ROOT_PARAMETER parameters[2];
+	CD3DX12_ROOT_PARAMETER parameters[3];
 
 	// Create a descriptor table with one entry in our descriptor heap
-	CD3DX12_DESCRIPTOR_RANGE range{ D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0 };
+	CD3DX12_DESCRIPTOR_RANGE range{ D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 2, 0 };
 	parameters[0].InitAsDescriptorTable (1, &range);
 
 	// Our constant buffer view
 	parameters[1].InitAsConstantBufferView (0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
+	parameters[2].InitAsConstantBufferView (1, 0, D3D12_SHADER_VISIBILITY_PIXEL);
 
 	// We don't use another descriptor heap for the sampler, instead we use a
 	// static sampler
@@ -290,7 +291,7 @@ void D3D12TexturedQuad::CreateRootSignature ()
 	CD3DX12_ROOT_SIGNATURE_DESC descRootSignature;
 
 	// Create the root signature
-	descRootSignature.Init (2, parameters,
+	descRootSignature.Init (3, parameters,
 		1, samplers, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 	ComPtr<ID3DBlob> rootBlob;

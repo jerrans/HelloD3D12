@@ -33,7 +33,7 @@ int WinMain (
 {
 	AMD::D3D12Sample* sample = nullptr;
 
-	const auto sampleId = 0;
+	const auto sampleId = 2;
 
 	switch (sampleId) {
 	case 0: sample = new AMD::D3D12Quad; break;
