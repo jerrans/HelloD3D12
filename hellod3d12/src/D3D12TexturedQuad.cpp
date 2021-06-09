@@ -276,7 +276,7 @@ void D3D12TexturedQuad::CreateRootSignature ()
 	CD3DX12_ROOT_PARAMETER parameters[3];
 
 	// Create a descriptor table with one entry in our descriptor heap
-	CD3DX12_DESCRIPTOR_RANGE range{ D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 2, 0 };
+	CD3DX12_DESCRIPTOR_RANGE range{ D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0 };
 	parameters[0].InitAsDescriptorTable (1, &range);
 
 	// Our constant buffer view
