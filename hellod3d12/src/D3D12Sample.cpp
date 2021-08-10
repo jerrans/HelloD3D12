@@ -312,7 +312,11 @@ void D3D12Sample::Initialize ()
 	rootSignatureDesc.Desc_1_1.pParameters = nullptr;
 	rootSignatureDesc.Desc_1_1.NumStaticSamplers = 0;
 	rootSignatureDesc.Desc_1_1.pStaticSamplers = nullptr;
-	rootSignatureDesc.Desc_1_1.Flags = D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS;
+	rootSignatureDesc.Desc_1_1.Flags = D3D12_ROOT_SIGNATURE_FLAG_NONE;
+
+	// The following flags cause D3D12SerializeVersionedRootSignature to fail
+	rootSignatureDesc.Desc_1_1.Flags |= D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS;
+	rootSignatureDesc.Desc_1_1.Flags |= D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS;
 
 	ComPtr<ID3DBlob> rootSignatureBlob;
 	ComPtr<ID3DBlob> errorBlob;
