@@ -305,6 +305,23 @@ void D3D12Sample::Initialize ()
 	window_.reset (new Window ("AMD HelloD3D12", 1280, 720));
 
 	CreateDeviceAndSwapChain ();
+
+	D3D12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDesc = {};
+	rootSignatureDesc.Version = D3D_ROOT_SIGNATURE_VERSION_1_1;
+	rootSignatureDesc.Desc_1_1.NumParameters = 0;
+	rootSignatureDesc.Desc_1_1.pParameters = nullptr;
+	rootSignatureDesc.Desc_1_1.NumStaticSamplers = 0;
+	rootSignatureDesc.Desc_1_1.pStaticSamplers = nullptr;
+	rootSignatureDesc.Desc_1_1.Flags = D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS;
+
+	ComPtr<ID3DBlob> rootSignatureBlob;
+	ComPtr<ID3DBlob> errorBlob;
+	HRESULT hr = D3D12SerializeVersionedRootSignature(&rootSignatureDesc, &rootSignatureBlob, &errorBlob);
+	if (FAILED(hr))
+	{
+		throw std::runtime_error("D3D12SerializeVersionedRootSignature failed.");
+	}
+
 	CreateAllocatorsAndCommandLists ();
 	CreateViewportScissor ();
 	
